@@ -18,6 +18,10 @@ jobs:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
           scope: "@aruneswar-thwrks"
+      - name: GitHub Tag Name
+       run: |
+         echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+         echo "Tag name from github.ref_name: ${{  github.ref_name }}"
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

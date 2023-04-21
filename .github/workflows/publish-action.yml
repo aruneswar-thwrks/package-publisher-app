@@ -18,6 +18,9 @@ jobs:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
           scope: "@aruneswar-thwrks"
+      - name: Exit if not on master branch
+        if: endsWith(github.ref, 'master') == false
+        run: exit -1
       - name: GitHub Tag Name
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"

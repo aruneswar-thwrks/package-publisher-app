@@ -20,8 +20,8 @@ jobs:
           scope: "@aruneswar-thwrks"
       - name: Exit if not on master branch
         run: echo ${{ github }}
-        if: ${{ github.event.release.target_commitish == 'my_branch' }}
-        run: exit -1
+        #if: ${{ github.event.release.target_commitish == 'my_branch' }}
+        #run: exit -1
       - name: GitHub Tag Name
         run: |
           echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"

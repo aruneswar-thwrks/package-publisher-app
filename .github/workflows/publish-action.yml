@@ -19,7 +19,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           scope: "@aruneswar-thwrks"
       - name: Exit if not on master branch
-        if: endsWith(github.ref, 'master') == false
+        run: echo ${{ github }}
+        if: ${{ github.event.release.target_commitish == 'my_branch' }}
         run: exit -1
       - name: GitHub Tag Name
         run: |

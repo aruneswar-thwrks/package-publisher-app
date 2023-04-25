@@ -32,6 +32,12 @@ jobs:
           npm version ${{  github.ref_name }}
       - name: Publish package
         run: npm publish
+      - name: E2E testing
+        run: |
+          mkdir sample-app
+          cd sample-app
+          npm init --yes
+          npm install request
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   

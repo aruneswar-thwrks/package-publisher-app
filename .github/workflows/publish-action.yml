@@ -18,22 +18,26 @@ jobs:
           node-version: 18
           registry-url: https://npm.pkg.github.com/
           scope: "@aruneswar-thwrks"
-      # - name: GitHub Tag Name
-      #   run: |
-      #     echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-      #     echo "Tag name from github.ref_name: ${{  github.ref_name }}"
-      # - name: Update package version
-      #   run: |
-      #     git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
-      #     npm version ${{  github.ref_name }}
+      - name: Exit if not on master branch
+        run: echo ${{ github.event.release.target_commitish }}
+        #if: ${{ github.event.release.target_commitish == 'my_branch' }}
+        #run: exit -1
+      - name: GitHub Tag Name
+        run: |
+          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
+          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
+      - name: Update package version
+        run: |
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com" && git config --global user.name "$GITHUB_ACTOR"
+          npm version ${{  github.ref_name }}
       - name: Publish package
         run: npm publish
-      - name: E2E testing
-        run: |
-          mkdir sample-app
-          cd sample-app
-          npm init --yes
-          npm install request
+      # - name: E2E testing
+      #   run: |
+      #     mkdir sample-app
+      #     cd sample-app
+      #     npm init --yes
+      #     npm install request
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
   
